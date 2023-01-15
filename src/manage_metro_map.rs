@@ -131,6 +131,73 @@ pub fn get_station_line_map() -> HashMap<String, u8> {
     return bincode::deserialize(include_bytes!("../data/station_line_map.bin")).unwrap();
 }
 
+pub fn get_all_stations() -> Vec<String> {
+    let mut stations: Vec<String> = Vec::with_capacity(94);
+
+    let mut transfer_stations_count: HashMap<String, u8> = HashMap::new();
+
+    for station in TRANSFER_STATIONS {
+        transfer_stations_count.insert(station.to_string(), 0);
+    }
+
+    for station in LINE1 {
+        if transfer_stations_count.contains_key(station) {
+            if transfer_stations_count.get(station).unwrap() > &0 {
+                continue;
+            }
+
+            transfer_stations_count.insert(station.clone().to_string(), 1);
+        }
+        stations.push(station.to_string());
+    }
+
+    for station in LINE2 {
+        if transfer_stations_count.contains_key(station) {
+            if transfer_stations_count.get(station).unwrap() > &0 {
+                continue;
+            }
+
+            transfer_stations_count.insert(station.clone().to_string(), 1);
+        }
+        stations.push(station.to_string());
+    }
+
+    for station in LINE3 {
+        if transfer_stations_count.contains_key(station) {
+            if transfer_stations_count.get(station).unwrap() > &0 {
+                continue;
+            }
+
+            transfer_stations_count.insert(station.clone().to_string(), 1);
+        }
+        stations.push(station.to_string());
+    }
+
+    for station in LINE3_HAROUN_EXTENSION {
+        if transfer_stations_count.contains_key(station) {
+            if transfer_stations_count.get(station).unwrap() > &0 {
+                continue;
+            }
+
+            transfer_stations_count.insert(station.clone().to_string(), 1);
+        }
+        stations.push(station.to_string());
+    }
+
+    for station in LINE3_KIT_KAT_EXTENSION {
+        if transfer_stations_count.contains_key(station) {
+            if transfer_stations_count.get(station).unwrap() > &0 {
+                continue;
+            }
+
+            transfer_stations_count.insert(station.clone().to_string(), 1);
+        }
+        stations.push(station.to_string());
+    }
+
+    return stations;
+}
+
 #[allow(dead_code)]
 pub fn generate_metro_map() {
     let mut graph = Graph::<String, (), Undirected>::new_undirected();

@@ -1,12 +1,15 @@
-use metro_ticket::metro::Metro;
+use eframe::{self, NativeOptions};
+
+use metro_ticket::app::MetroApp;
 
 fn main() {
-    let metro = Metro::new();
+    let app = MetroApp::new();
 
-    let (ticket, number_of_stations, number_of_lines) =
-        metro.calculate_ticket("Rod Al-Farag Corridor", "Helwan");
+    let win_options = NativeOptions::default();
 
-    dbg!(&ticket);
-    dbg!(&number_of_stations);
-    dbg!(&number_of_lines);
+    eframe::run_native(
+        "Metro Ticket App",
+        win_options,
+        Box::new(|_cc| Box::new(app)),
+    );
 }
