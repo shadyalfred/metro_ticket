@@ -17,8 +17,6 @@ jobs:
             archive: zip
     steps:
       - uses: actions/checkout@master
-      - name: Install fontconfig
-        run: export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
