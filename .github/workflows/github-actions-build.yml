@@ -19,7 +19,7 @@ jobs:
             archive: zip
     steps:
       - name: fix fontconfig
-        uses: sudo aptitude install libfontconfig1-dev libfontconfig
+        runs: sudo aptitude install libfontconfig1-dev libfontconfig
       - uses: actions/checkout@master
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
