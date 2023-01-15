@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Install fontconfig
-        run: sudo apt-get update && sudo apt-get install libfontconfig-dev libfontconfig1-dev fontconfig-config fontconfig vflib3-dev pkgconf && sudo snap install cmake --classic && export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+        run: export PKG_CONFIG_PATH=/usr/share/pkgconfig
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
@@ -29,4 +29,4 @@ jobs:
           RUSTTARGET: ${{ matrix.target }}
           ARCHIVE_TYPES: ${{ matrix.archive }}
           TOOLCHAIN_VERSION: '1.66.0'
-          PKG_CONFIG_PATH: '/usr/lib/x86_64-linux-gnu/pkgconfig'
+          PKG_CONFIG_PATH: /usr/share/pkgconfig
