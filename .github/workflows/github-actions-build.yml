@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: install fontconfig
-        run: sudo apt-get install libfontconfig1-dev fontconfig-config fontconfig vflib3-dev
+        run: sudo apt-get install libfontconfig1-dev fontconfig-config fontconfig vflib3-dev && sudo snap install cmake --classic
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
