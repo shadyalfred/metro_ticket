@@ -63,13 +63,13 @@ impl App for MetroApp {
 
         // Destination
         SidePanel::right("Destination").show(ctx, |ui| {
-            ui.with_layout(Layout::top_down(Align::RIGHT), |ui| {
-                ui.add(
-                    TextEdit::singleline(&mut self.destination_stations_filter)
-                        .hint_text("Filter destination stations"),
-                );
+            ui.vertical(|ui| {
+                    ui.add(
+                        TextEdit::singleline(&mut self.destination_stations_filter)
+                            .hint_text("Filter destination stations"),
+                    );
 
-                ui.label("Destination");
+                    ui.label("Destination");
 
                 if !self.destination_stations_filter.is_empty() {
                     filtered_destination_stations = self
@@ -89,15 +89,15 @@ impl App for MetroApp {
                     }
                 }
 
-                ScrollArea::vertical().show(ui, |ui| {
-                    for station in filtered_destination_stations {
-                        ui.selectable_value(
-                            &mut self.selected_destination_station,
-                            station.to_string(),
-                            station,
-                        );
-                    }
-                });
+                        ScrollArea::vertical().show(ui, |ui| {
+                            for station in filtered_destination_stations {
+                                ui.selectable_value(
+                                    &mut self.selected_destination_station,
+                                    station.to_string(),
+                                    station,
+                                );
+                            }
+                        });
             });
         });
 
