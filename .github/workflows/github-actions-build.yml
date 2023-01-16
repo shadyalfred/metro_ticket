@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Fix fontconfig
-        run: sudo apt-get update -y && sudo apt-get install -y libfontconfig1-dev
+        run: sudo apt-get update -y && sudo apt-get install -y libfontconfig libfontconfig1-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libfreetype6-dev libxft-dev
       - name: Set env
         run: echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
       - name: Compile and release
