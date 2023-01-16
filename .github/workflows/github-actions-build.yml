@@ -6,8 +6,6 @@ jobs:
   release:
     name: release ${{ matrix.target }}
     runs-on: ubuntu-latest
-    env:
-      PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig
     strategy:
       fail-fast: false
       matrix:
@@ -22,15 +20,11 @@ jobs:
       - uses: actions/checkout@master
       - name: Fix fontconfig
         run: sudo apt-get update -y && sudo apt-get install -y libfontconfig libfontconfig1-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libfreetype6-dev libxft-dev
-      - name: Set env
-        run: echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig
         with:
           RUSTTARGET: ${{ matrix.target }}
           ARCHIVE_TYPES: ${{ matrix.archive }}
           TOOLCHAIN_VERSION: '1.66.0'
-          PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig
