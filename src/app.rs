@@ -1,5 +1,8 @@
 use eframe::App;
-use egui::{Align, CentralPanel, Color32, Layout, ScrollArea, SidePanel, TextEdit, TopBottomPanel};
+use egui::{
+    style::TextStyle, CentralPanel, Color32, FontFamily, FontId, ScrollArea, SidePanel, TextEdit,
+    TopBottomPanel,
+};
 
 use crate::{metro::Metro, ticket::Ticket};
 
@@ -14,6 +17,23 @@ pub struct MetroApp {
 
 impl App for MetroApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        let mut style = (*ctx.style()).clone();
+
+        style.text_styles = [
+            (
+                TextStyle::Heading,
+                FontId::new(30.0, FontFamily::Proportional),
+            ),
+            (
+                TextStyle::Button,
+                FontId::new(15.0, FontFamily::Proportional),
+            ),
+            (TextStyle::Body, FontId::new(18.0, FontFamily::Proportional)),
+        ]
+        .into();
+
+        ctx.set_style(style);
+
         let mut filtered_start_stations: Vec<&str> = Vec::new();
         let mut filtered_destination_stations: Vec<&str> = Vec::new();
 
@@ -64,12 +84,12 @@ impl App for MetroApp {
         // Destination
         SidePanel::right("Destination").show(ctx, |ui| {
             ui.vertical(|ui| {
-                    ui.add(
-                        TextEdit::singleline(&mut self.destination_stations_filter)
-                            .hint_text("Filter destination stations"),
-                    );
+                ui.add(
+                    TextEdit::singleline(&mut self.destination_stations_filter)
+                        .hint_text("Filter destination stations"),
+                );
 
-                    ui.label("Destination");
+                ui.label("Destination");
 
                 if !self.destination_stations_filter.is_empty() {
                     filtered_destination_stations = self
@@ -89,15 +109,15 @@ impl App for MetroApp {
                     }
                 }
 
-                        ScrollArea::vertical().show(ui, |ui| {
-                            for station in filtered_destination_stations {
-                                ui.selectable_value(
-                                    &mut self.selected_destination_station,
-                                    station.to_string(),
-                                    station,
-                                );
-                            }
-                        });
+                ScrollArea::vertical().show(ui, |ui| {
+                    for station in filtered_destination_stations {
+                        ui.selectable_value(
+                            &mut self.selected_destination_station,
+                            station.to_string(),
+                            station,
+                        );
+                    }
+                });
             });
         });
 
