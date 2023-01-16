@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@master
       - name: Fix fontconfig
         run: sudo apt-get update && sudo apt-get install libfontconfig-dev
+      - name: Set env
+        run: echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
