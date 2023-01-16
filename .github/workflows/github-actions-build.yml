@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Fix fontconfig
-        run: sudo apt-get update && sudo apt-get install librust-servo-fontconfig-dev librust-servo-fontconfig-sys-dev librust-servo-freetype-sys-dev
+        run: sudo apt-get update && sudo apt-get install libfontconfig-dev
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
