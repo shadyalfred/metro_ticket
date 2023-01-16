@@ -6,6 +6,8 @@ jobs:
   release:
     name: release ${{ matrix.target }}
     runs-on: ubuntu-latest
+    env:
+      PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig
     strategy:
       fail-fast: false
       matrix:
@@ -19,13 +21,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Fix fontconfig
-        run: sudo apt-get update && sudo apt-get install libfontconfig-dev
+        run: sudo apt-get update -y && sudo apt-get install -y libfontconfig1-dev
       - name: Set env
         run: echo "PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig" >> $GITHUB_ENV
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PKG_CONFIG_PATH: /usr/lib/x86_64-linux-gnu/pkgconfig
         with:
           RUSTTARGET: ${{ matrix.target }}
           ARCHIVE_TYPES: ${{ matrix.archive }}
