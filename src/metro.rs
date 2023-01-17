@@ -12,7 +12,7 @@ pub struct Metro {
     station_node_map: HashMap<String, NodeIndex>,
     station_line_map: HashMap<String, u8>,
     transfer_stations: HashSet<String>,
-    all_stations: Vec<String>,
+    pub all_stations: Vec<String>,
 }
 
 impl Metro {
@@ -105,9 +105,5 @@ impl Metro {
         }
 
         return (ticket, path, number_of_lines);
-    }
-
-    pub fn get_all_stations(&self) -> Vec<String> {
-        return self.all_stations.iter().cloned().collect();
     }
 }
