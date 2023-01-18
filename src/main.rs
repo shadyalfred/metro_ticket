@@ -34,6 +34,7 @@ fn main() {
                 .white()
                 .on_yellow()
                 .to_string(),
+
             Ticket::Green => console::style(format!("{:?} Ticket", ticket))
                 .white()
                 .on_green()
