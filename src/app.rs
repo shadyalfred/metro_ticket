@@ -10,8 +10,11 @@ pub struct MetroApp {
     metro: Metro,
     start_stations_filter: String,
     selected_start_station: String,
+    previous_selected_start_station: String,
     destination_stations_filter: String,
     selected_destination_station: String,
+    previous_selected_destination_station: String,
+    previous_ticket: Option<(Ticket, Vec<String>, u8)>,
     all_stations: Vec<String>,
 }
 
@@ -123,14 +126,7 @@ impl App for MetroApp {
 
         // Ticket
         CentralPanel::default().show(ctx, |ui| {
-            if !self.selected_start_station.is_empty()
-                && !self.selected_destination_station.is_empty()
-            {
-                let (ticket, path, lines) = self.metro.calculate_ticket(
-                    &self.selected_start_station,
-                    &self.selected_destination_station,
-                );
-
+            if let &Some((ticket, path, lines)) = &self.get_ticket() {
                 match ticket {
                     Ticket::Yellow => ui.visuals_mut().override_text_color = Some(Color32::YELLOW),
                     Ticket::Green => ui.visuals_mut().override_text_color = Some(Color32::GREEN),
@@ -147,9 +143,8 @@ impl App for MetroApp {
                         lines
                     ));
                 });
-
-                ui.reset_style();
             }
+            ui.reset_style();
         });
     }
 }
@@ -164,8 +159,33 @@ impl MetroApp {
             all_stations,
             start_stations_filter: "".to_string(),
             selected_start_station: "".to_string(),
+            previous_selected_start_station: "".to_string(),
             destination_stations_filter: "".to_string(),
             selected_destination_station: "".to_string(),
+            previous_selected_destination_station: "".to_string(),
+            previous_ticket: None,
         };
+    }
+
+    fn get_ticket(&mut self) -> &Option<(Ticket, Vec<String>, u8)> {
+        if self.previous_selected_start_station == self.selected_start_station
+            && self.previous_selected_destination_station == self.selected_destination_station
+        {
+            return &self.previous_ticket;
+        }
+
+        if self.selected_start_station.is_empty() || self.selected_destination_station.is_empty() {
+            return &self.previous_ticket;
+        }
+
+        self.previous_ticket = Some(self.metro.calculate_ticket(
+            &self.selected_start_station,
+            &self.selected_destination_station,
+        ));
+
+        self.previous_selected_start_station = self.selected_start_station.clone();
+        self.previous_selected_destination_station = self.selected_destination_station.clone();
+
+        return &self.previous_ticket;
     }
 }
