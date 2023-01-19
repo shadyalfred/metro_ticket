@@ -21,10 +21,10 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --release --target x86_64-pc-windows-msvc
 
       - name: Zip
-        run: tar -czf release.tar.gz ${{ github.workspace }}/target/release/
+        run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/metro_ticket
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -32,4 +32,4 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           files: |
-            ${{ github.workspace }}/release.tar.gz
+            ${{ github.workspace }}/x86_64-pc-windows-msvc.tar.gz
