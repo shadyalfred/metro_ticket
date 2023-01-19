@@ -23,8 +23,17 @@ jobs:
           command: build
           args: --release --target x86_64-pc-windows-msvc
 
-      - name: Where the fuck am I?
-        run: pwd && ls && ls target
+      - name: ls
+        run: pwd && ls
+
+      - name: ls target
+        run: ls target
+
+      - name: ls target/release
+        run: ls ./target/release
+
+      - name: ls target/x86_64-pc-windows-msvc
+        run: ls ./target/x86_64-pc-windows-msvc
 
       - name: Zip
         run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/
