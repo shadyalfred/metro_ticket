@@ -24,10 +24,10 @@ jobs:
           args: --release --target x86_64-pc-windows-msvc
 
       - name: Where the fuck am I?
-        run: pwd
+        run: pwd && ls
 
       - name: Zip
-        run: tar -czf x86_64-pc-windows-msvc.tar.gz ./metro_ticket/target/release/*
+        run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/
 
       - name: Release
         uses: softprops/action-gh-release@v1
