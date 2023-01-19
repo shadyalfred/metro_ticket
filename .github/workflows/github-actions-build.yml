@@ -24,7 +24,7 @@ jobs:
           args: --release --target x86_64-pc-windows-msvc
 
       - name: Where the fuck am I?
-        run: pwd && ls
+        run: pwd && ls && ls target && ls release
 
       - name: Zip
         run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/
