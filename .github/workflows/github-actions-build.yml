@@ -24,7 +24,7 @@ jobs:
           args: --release --target x86_64-pc-windows-msvc
 
       - name: Zip
-        run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/metro_ticket.exe
+        run: tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/*
 
       - name: Release
         uses: softprops/action-gh-release@v1
