@@ -23,8 +23,13 @@ jobs:
           command: build
           args: --release
 
+      - name: Zip
+        run: tar -czf release.tar.gz ${{ github.workspace }}/target/release/
+
       - name: Release
-        uses: actions/upload-artifact@v2
+        uses: softprops/action-gh-release@v1
         with:
           name: assets
           path: ./target/release/metro_ticket.exe
+          files: |
+            ${{ github.workspace }}/release.tar.gz
