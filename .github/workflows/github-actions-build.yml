@@ -8,17 +8,23 @@ jobs:
     name: Build and release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Prepare toolchain
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           target: x86_64-pc-windows-msvc
-      - uses: actions-rs/cargo@v1
+
+      - name: Build
+        uses: actions-rs/cargo@v1
         with:
           command: build
           args: --release
 
-      - uses: actions/upload-artifact@v2
+      - name: Release
+        uses: actions/upload-artifact@v2
         with:
           name: assets
-          path: target/release/metro_ticket.exe
+          path: ./target/release/metro_ticket.exe
