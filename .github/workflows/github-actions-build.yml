@@ -28,8 +28,8 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          name: assets
-          path: ./target/release/metro_ticket.exe
           files: |
             ${{ github.workspace }}/release.tar.gz
