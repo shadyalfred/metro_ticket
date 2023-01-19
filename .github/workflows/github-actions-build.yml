@@ -6,8 +6,6 @@ jobs:
   release:
     name: release x86_64-pc-windows-msvc
     runs-on: windows-latest
-    strategy:
-      fail-fast: true
     steps:
       - uses: actions/checkout@master
       - name: Compile and release
