@@ -24,7 +24,7 @@ jobs:
           args: --release --target x86_64-pc-windows-msvc
 
       - name: Zip
-        run: cd ${{ github.workspace }} && tar -czf x86_64-pc-windows-msvc.tar.gz ./target/release/*
+        run: cd ${{ github.workspace }} && tar -czf x86_64-pc-windows-msvc.tar.gz ./metro_ticket/target/release/*
 
       - name: Release
         uses: softprops/action-gh-release@v1
