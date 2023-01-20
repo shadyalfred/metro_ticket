@@ -21,10 +21,10 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --target x86_64-pc-windows-msvc
+          args: --release --target x86_64-pc-windows-msvc
 
       - name: Compress
-        run: cd ./target/x86_64-pc-windows-msvc/debug/ && tar -czf x86_64-pc-windows-msvc.tar.gz metro_ticket.exe && cd ../../.. && cp ./target/x86_64-pc-windows-msvc/debug/x86_64-pc-windows-msvc.tar.gz .
+        run: cd ./target/x86_64-pc-windows-msvc/release/ && tar -czf x86_64-pc-windows-msvc.tar.gz metro_ticket.exe && cd ../../.. && cp ./target/x86_64-pc-windows-msvc/release/x86_64-pc-windows-msvc.tar.gz .
 
       - name: Release
         uses: softprops/action-gh-release@v1
