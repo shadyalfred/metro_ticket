@@ -23,10 +23,8 @@ jobs:
           command: build
           args: --release --target x86_64-pc-windows-msvc
 
-      - name: Zip
-        uses: montudor/action-zip@v1
-        with:
-          args: tar -cgf x86_64-pc-windows-msvc.tar.gz -C ./target/x86_64-pc-windows-msvc/release/metro_ticket.exe
+      - name: Compress
+        run: tar -cgf x86_64-pc-windows-msvc.tar.gz -C ./target/x86_64-pc-windows-msvc/release/metro_ticket.exe
 
       - name: Release
         uses: softprops/action-gh-release@v1
